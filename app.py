@@ -28,6 +28,10 @@ class Booking(db.Model):
 with app.app_context():
     db.create_all()
 
+@app.route('/')
+def home():
+    return render_template('index.html', movies=movies)
+
 @app.route('/book/<int:movie_id>', methods=['GET', 'POST'])
 def book(movie_id):
     # Find the movie using movie_id
@@ -60,6 +64,7 @@ def confirmation():
 def view_bookings():
     bookings = Booking.query.all()
     return render_template('bookings.html', bookings=bookings)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
